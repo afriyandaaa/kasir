@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "regal-stage-443810-r3",
+  "private_key_id": "02bafc88faf7654feaa1308795086568cde1af7c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8FXIHGtC5P+K+\nV4dVD3YgpaNPcI0KOAnRNB3VTcNphRr+2pzRp0on0ydF597262hmz6kP1IMbBuWi\ntzyBDSf2DPz+4GC5wJT9kyMQstZYq0KJFzfiDCrFf3BorgCU9Q9azKni8kCEacn1\nfZOGX2TptuMZ9DgycsKwgtADoVCvtVBJ7HBL+7RYeceP8ABAWh5ob/ks+v3+xc7n\na8PmOV2TRwJvSAMdnTN6p6XAoJwoCLvHvvtsT7u4aIJVjjSCF/nODhdKWD6xZLB6\nNQIPZwuHaFpgnYwS+dEsJ2JI/yi1CdZq1LpZCqLQ8vcGG+PsocH4Osyp7A5V0wqB\nOpYpHpUnAgMBAAECggEAFK1y5M8Q5Vzdq7lpunNBtGMhailgiCATDDnjkcDD3ATz\nK9OS7AWtRGWVar0MKS9GQg9QcdoWM9F1S4dDkpiErStOYSL/30wJ1Tro3vwaTpM9\ndF7mGObniODy1b9TdwzeDEh14OprJ2ON/Xw5zMsOCBfALelIiFtPhiJLhiqk+TwQ\ndhqonLA5yftgHHdyjyvNaJM9DmQlPlNY4KxJ7epSvDwqta5QjQ50ntthyHKQwSjb\nfvjLkKOZ9kRbZT6cbV0qbqRufmn71sPSy+fKiOycnLA0jwgwmIEGQ6kz4Q83kPsS\nmHUvub5vvU3/W7GBiEax6ZkZ+CwFXPOghM0NadOkqQKBgQDk5dzLRybj0s2NSZ1v\n2T/AAl0V5wRX5p/4GP8jAdlKDd+4ICfKX9dzZdchBKzCBMcFpdfnY6GYNAc/LcZw\nUrVJkjdjbLLSlrOGL4XsKROqK+ujpUbaP9Otcmq+EmbzlxkmA+Z04r6YIykODzXe\nf/jwhEqfakNrGt6UsfXK0hMNawKBgQDSWnaooXUKtuCPslEJCyv4sihuvsLkrtlM\nYJerppP/0TG/SDtk/+UrzMH/yJ/rxVOqspL1JGNudNdzNRGTXda9UOC3rE/2JpJE\n18qtadsW1qTIqpzPbtLBvhcww5z7X0tX6U0h3NVZ9RvI/2UtnhxAVZglh1xDQym0\nSxLUi/vqNQKBgQDiHwm9bu7GRWt2VfDHm5BUuIEIsA0kYNpLFzaEeMEVXRtTI8Dr\nNT776vFY1utrR5jsxWbCWTQ7zboS+b99GteodF9vQuRtER8MQkpEgFfC1lyUbyPN\nWxxbzhoQ5tD5dp0LZvL1KUIrvSBDmVcYFMfxol6tmSY82nBj6GHuGRVlPQKBgEDa\n32bSkPGCvO3Q/qcZKK9+znSGoDQ9rIWd6mVj8JGZAAuHy7gyJYhBkza3tobMyiUA\n9cpbM8TkhWDh5c9XyVOJUh+PIwAzmDldhwG8d24tM5Ui9UIHWzec0i2YwhfGo8Yx\nCjT8j1My/SQVii5sZy12tngrqcibNop98wpRNpRZAoGABtyy699aPAnq1z6PNisT\nqjImKqgngP1QywJ/8wBcgz0hJ+gilE+S2tidIEo4WSm5S5Rh3kKzYAmHq8+pcSD6\nni990rMhlRxpK+u4leZFYaYgUY6e0/CfneC7OUczwgPg1WNMp3/TynneiQn8YH8u\nTnX5f580IADsqhELNvJC5ww=\n-----END PRIVATE KEY-----\n",
+  "client_email": "kasirapp-service-account@regal-stage-443810-r3.iam.gserviceaccount.com",
+  "client_id": "111225434977490715660",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/kasirapp-service-account%40regal-stage-443810-r3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
