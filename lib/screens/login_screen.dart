@@ -12,13 +12,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
+  String? _emailError;
+  String? _passwordError;
 
-  // Fungsi login
+  bool _isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+    return emailRegex.hasMatch(email);
+  }
+
   void login() async {
-    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Email dan password tidak boleh kosong')),
-      );
+    setState(() {
+      _emailError = null;
+      _passwordError = null;
+    });
+
+    if (!_isValidEmail(_emailController.text.trim())) {
+      setState(() {
+        _emailError = 'Email tidak valid';
+      });
+      return;
+    }
+
+    if (_passwordController.text.trim().isEmpty) {
+      setState(() {
+        _passwordError = 'Password tidak boleh kosong';
+      });
       return;
     }
 
@@ -44,15 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
         case 'wrong-password':
           errorMessage = 'Password salah.';
           break;
+        case 'invalid-email':
+          errorMessage = 'Email tidak valid.';
+          break;
         default:
           errorMessage = 'Terjadi kesalahan. Silakan coba lagi.';
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessage),
-      ));
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Login gagal: $e'),
       ));
     } finally {
       setState(() {
@@ -99,6 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.person),
                   labelText: 'Email',
+                  errorText: _emailError,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -111,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock),
                   labelText: 'Password',
+                  errorText: _passwordError,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
