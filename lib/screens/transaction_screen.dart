@@ -60,9 +60,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 'quantity': item.quantity,
                 'price': item.price,
                 'totalPrice': item.totalPrice,
+                'name': item.name,
               })
           .toList(),
-      'timestamp': DateTime.now().toIso8601String(),
+      'timestamp': FieldValue.serverTimestamp(),
       'totalPrice': totalPrice,
       'paymentMethod': selectedPaymentMethod,
     };

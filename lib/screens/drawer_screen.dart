@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kasir/pages/laporan_page.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -77,6 +78,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         leading: const Icon(Icons.email_outlined),
                         title: const Text('Email'),
                         subtitle: Text(userEmail),
+                      ),
+                      const Divider(),
+                      ListTile(
+                        leading: const Icon(Icons.print_rounded),
+                        title: const Text('Laporan'),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LaporanPage()));
+                        },
                       ),
                       const Divider(),
                       ListTile(
