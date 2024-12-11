@@ -1,8 +1,15 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AddProductScreen extends StatefulWidget {
+  final String barcode; // Menambahkan parameter barcode
+
+  AddProductScreen({Key? key, required this.barcode}) : super(key: key);
+
   @override
   _AddProductScreenState createState() => _AddProductScreenState();
 }
@@ -11,9 +18,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
+  final TextEditingController barcodeController = TextEditingController();
   String selectedCategory = 'makanan';
+  String? imagePath; // Variable to hold the selected image path
 
   final List<String> categories = ['makanan', 'minuman', 'sayuran', 'nasi', 'snack']; // List of categories
+
+  @override
+  void initState() {
+    super.initState();
+    barcodeController.text = widget.barcode; // Mengisi controller dengan barcode yang diterima
+  }
 
   // Function to generate a new categoryId
   Future<String> getNewCategoryId() async {
@@ -26,6 +41,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
     } catch (e) {
       print('Error fetching products for categoryId: $e');
       rethrow; // Rethrow to be handled by caller
+    }
+  }
+
+  // Function to pick an image
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery); // Use pickImage instead of getImage
+    if (pickedFile != null) {
+      // Save the image to local storage
+      final directory = await getApplicationDocumentsDirectory();
+      final String fileName = pickedFile.path.split('/').last;
+      final localImagePath = '${directory.path}/$fileName';
+      final imageFile = File(pickedFile.path);
+
+      // Copy image to the app's document directory
+      await imageFile.copy(localImagePath);
+
+      setState(() {
+        imagePath = localImagePath; // Store the local image path
+      });
+
+      print('Image saved locally: $localImagePath');
     }
   }
 
@@ -48,15 +85,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
 
     try {
-      final categoryId = await getNewCategoryId(); // Ambil categoryId baru
+      final categoryId = await getNewCategoryId(); // Ambil categoryId baru yang unik
 
       // Menambahkan produk ke Firestore
       await FirebaseFirestore.instance.collection('products').add({
         'name': nameController.text,
+        'barcode': barcodeController.text,
         'price': double.parse(priceController.text),
         'stock': int.parse(stockController.text),
         'filter': selectedCategory, // Simpan kategori yang dipilih
-        'categoryId': categoryId,
+        'categoryId': categoryId, // Menggunakan categoryId baru yang unik
+        'imagePath': imagePath, // Store the local image path
       });
 
       print('Product added successfully');
@@ -76,11 +115,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          // This ensures the screen is scrollable on small devices
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Ensures alignment starts from left
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Name input field
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
@@ -91,7 +128,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
-              // Price input field
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
@@ -103,7 +139,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
-              // Stock input field
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
@@ -115,7 +150,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
-              // Category dropdown
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextField(
+                  controller: barcodeController,
+                  decoration: InputDecoration(
+                    labelText: 'Barcode Barang',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: DropdownButtonFormField<String>(
@@ -137,8 +181,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   }).toList(),
                 ),
               ),
+              // Pick Image button
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _pickImage, // Trigger image picker
+                child: Text('Pilih Gambar Produk'),
+              ),
+              if (imagePath != null) ...[
+                SizedBox(height: 10),
+                Image.file(File(imagePath!)), // Display selected image
+              ],
               SizedBox(height: 20),
-              // Add product button
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
@@ -147,7 +200,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   },
                   child: Text('Tambah'),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50), // Makes the button wider
+                    minimumSize: Size(double.infinity, 50),
                   ),
                 ),
               ),

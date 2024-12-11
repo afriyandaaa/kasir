@@ -1,20 +1,28 @@
 class CartItem {
   final String categoryId;
   final String name;
-  double price;  // Make the price mutable
+  final String imagePath;
+  double price; // Price dapat diubah (mutable)
   int quantity;
 
   CartItem({
     required this.categoryId,
+    required this.imagePath,
     required this.name,
     required this.price,
     required this.quantity,
   });
 
-  // Method to update the price of a product
+  // Method untuk memperbarui harga produk
   void updatePrice(double newPrice) {
     price = newPrice;
   }
 
-  double get totalPrice => price * quantity; // Calculate total price for this item
+  // Getter untuk menghitung total harga berdasarkan price dan quantity
+  double get totalPrice => price * quantity;
+
+  // Method untuk memperbarui jumlah produk
+  void updateQuantity(int newQuantity) {
+    quantity = newQuantity;
+  }
 }
